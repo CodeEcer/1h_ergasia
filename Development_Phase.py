@@ -15,7 +15,7 @@ menu_phrase = """Welcome to the tweet editor by George Petakas and his bitches
                             + :  read one tweet down from your current tweet
                             = :  Print current tweet ID
                             q :  quit without save
-                            w :  overwrite file to disk
+                            w :  Yoloss
                             x :  exit and save
                             """
 

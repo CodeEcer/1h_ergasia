@@ -1,8 +1,8 @@
+import datetime
 import json
-#jekinao me lista apo dictionaries oste kathe index ths listas na einai to id tou tweet.
-    ##sto refactor tha prospathisoume na ginei me tuple gia pio grhgora. 
+from datetime import datetime
 
-
+all_tweets = []
 menu_phrase = """Welcome to the tweet editor by George Petakas and his bitches
                         
                         To use this editor please enter one of the following choices
@@ -10,42 +10,120 @@ menu_phrase = """Welcome to the tweet editor by George Petakas and his bitches
                             c :  create a tweet
                             r (space) tweet's id : read a certain tweet
                             u (space) tweet's id : update a certain tweet
-                            $ : read the last tweet
+                            $ :  read t     he last tweet
                             - :  read one tweet up from the current tweet
                             + :  read one tweet down from your current tweet
                             = :  Print current tweet ID
-                            q :  quit without save
-                            w :  Yoloss
-                            x :  exit and save
+                            q :  Quit without save
+                            w :  (Over)write file to disk
+                            x :  Exit and save
                             """
 
-def main():
+def getting_input_from_user():
+    user_input = input(menu_phrase)
+    if len(user_input) == 1:
+            instruction = user_input
+            print("the user selected the choice:",instruction)
+            return(instruction,None)        
+    else:
+            instruction = user_input[0]
+            tweet_id = int(user_input[1]) #-1 giati ta tweets jekinane apo to 1 kai oxi apo to 0 GIA TON XRHSTH
+            print("the user selected the choice:",instruction , "of the tweet with the id" ,tweet_id)
+            return(instruction, tweet_id)
+
+
+def initializing_tweet_list():
     
-    ##while True:
-        menu_selector = input(menu_phrase)
-       
-        for c in menu_selector.split():
-            try : 
-                id = (int(c))
-            except ValueError:
-                pass
-    
-print(id)
+    with open("1h_ergasia\_tweet_for_code.json", "r") as json_file_read:
+        
+        for line in json_file_read:
+            tweet = json.loads(line) #kathe tweet einai ena dictionary
             
+            #logika tha to kano na krataei mono ta pedia pou me endiaferoun.
+            all_tweets.append(tweet) #h all_tweet prosorina einai mia lista apo dictionaries, kai to index tou tweet einai to id tou
+         
+
+def create_tweet():
+  users_text = input("Please enter your text")
+  current_time = datetime.now()
+  ##new_tweet = {"text" : users_text , "created_at" : current_time.strftime()  }
+  print("the user typed" ,users_text , "at" , current_time.strftime("%a %b %d %H:%M:%S %Y"))
+  new_tweet = {"text" : users_text , "created_at" : current_time.strftime("%a %b %d %H:%M:%S %Y") }
+  all_tweets.append(new_tweet)
+
+
+
+
+def read_tweet(id):
+    print(all_tweets[id]["text"] , "created at",all_tweets[id]["created_at"] )
+
+
+
+def update_tweet(id):
+    current_time = datetime.now()
+    new_text = input("Set the updated text")
+    all_tweets[id]["text"] = new_text
+    all_tweets[id]["created_at"] = current_time.strftime("%a %b %d %H:%M:%S %Y")
+    print("you texted :",all_tweets[id]["text"], "at the exact time of : ", all_tweets[id]["created_at"] )
+    
+     
+    
+
+
+
+def save_changes():
+
+    with open("1h_ergasia\writing_json.json", "w") as json_to_write:
+        json_to_write.seek(0)
+        for tweet in all_tweets:
+            tweet = json.dump(tweet, json_to_write)
+            json_to_write.write('\n')
+            
+           
+
+
+
+def exit_save_changes():
+    save_changes()
+    return False #gia na allajo to running flag
+    
+
+
+
+def main():
+
+    global running_flag
+    running_flag = True
+
+    initializing_tweet_list()
+    
+    while  running_flag:
+        
         
 
+        instruction , tweet_id = getting_input_from_user()    
 
-       
+   
+        match instruction :
 
-       
+            case "c": create_tweet()
 
+            case "r": read_tweet(tweet_id)
 
+            case "u": update_tweet(tweet_id)
 
+            case "q": running_flag = False #stamataei to atermono while loop    
 
+            case "w": save_changes()
 
+            case "x": running_flag = exit_save_changes()
+
+            case _: print("wrong character")          
 
 
 
 if __name__ == "__main__":
-    main()
+    main()         
+            
+
 

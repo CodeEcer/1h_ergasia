@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 
 all_tweets = []
+current_tweet_id = 0
 menu_phrase = """Welcome to the tweet editor by George Petakas and his bitches
                         
                         To use this editor please enter one of the following choices
@@ -50,14 +51,16 @@ def create_tweet():
   print("the user typed" ,users_text , "at" , current_time.strftime("%a %b %d %H:%M:%S %Y"))
   new_tweet = {"text" : users_text , "created_at" : current_time.strftime("%a %b %d %H:%M:%S %Y") }
   all_tweets.append(new_tweet)
+  current_tweet_id = all_tweets.index(new_tweet)
+  print(" the current tweet is set to the tweet with id:" ,current_tweet_id)
 
 
 
 
 def read_tweet(id):
     print(all_tweets[id]["text"] , "created at",all_tweets[id]["created_at"] )
-
-
+    current_tweet_id = all_tweets.index(all_tweets[id])
+    print(" the current tweet is set to the tweet with id:" ,current_tweet_id)
 
 def update_tweet(id):
     current_time = datetime.now()
@@ -65,11 +68,11 @@ def update_tweet(id):
     all_tweets[id]["text"] = new_text
     all_tweets[id]["created_at"] = current_time.strftime("%a %b %d %H:%M:%S %Y")
     print("you texted :",all_tweets[id]["text"], "at the exact time of : ", all_tweets[id]["created_at"] )
+    current_tweet_id = all_tweets.index(all_tweets[id])
+    print(" the current tweet is set to the tweet with id:" ,current_tweet_id) 
     
-     
-    
-
-
+def delete_tweet(tweet_id):
+    print()
 
 def save_changes():
 
@@ -111,6 +114,17 @@ def main():
             case "r": read_tweet(tweet_id)
 
             case "u": update_tweet(tweet_id)
+
+            case "d": delete_tweet(tweet_id)
+
+            case "$": read_tweet(len(all_tweets)-1) #size is by 1 bigger than the sum of indexes cause it starts with 1. If i make up for the 
+            #indexes for the user, i won't have to subtract 1 cause the indexes will start from 1 for the user.
+
+            case "-": read_tweet(current_tweet_id-1)
+
+            case "+": read_tweet(current_tweet_id+1)
+
+            case "=": print(" the current tweet is set to the tweet with id:" ,current_tweet_id) 
 
             case "q": running_flag = False #stamataei to atermono while loop    
 

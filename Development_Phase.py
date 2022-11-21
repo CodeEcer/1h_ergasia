@@ -103,7 +103,7 @@ def read_next_tweet():
 
 def save_changes(): #REFACTOOOOOR!!!!!
 
-    with open("1h_ergasia\writing_json.json", "w") as json_to_write:
+    with open("1h_ergasia\_tweet_for_code.json", "w") as json_to_write:
         json_to_write.seek(0)
         for tweet in all_tweets:
             if tweet != None:
@@ -160,7 +160,7 @@ def main():
             case "w": save_changes()
 
             case "x": exit_save_changes()
-            
+
 
             case _: print("wrong character")          
 

@@ -35,8 +35,8 @@ def getting_input_from_user():
         return(instruction, tweet_id)
    
 
-def initializing_tweet_list():
-    all_tweets.append(None)
+def initializing_tweet_list(): #REFACTOOOOR!!!
+    all_tweets.append(None) #In order to start using list from index and not messing with the printed indexes
     with open("1h_ergasia\_tweet_for_code.json", "r") as json_file_read:
         
         for line in json_file_read:
@@ -101,7 +101,7 @@ def read_next_tweet():
         current_tweet_id = current_tweet_id +1
         read_tweet(current_tweet_id)
 
-def save_changes():
+def save_changes(): #REFACTOOOOOR!!!!!
 
     with open("1h_ergasia\writing_json.json", "w") as json_to_write:
         json_to_write.seek(0)
@@ -159,7 +159,7 @@ def main():
 
             case "w": save_changes()
 
-            case "x": exit_save_changes
+            case "x": exit_save_changes()
 
             case _: print("wrong character")          
 

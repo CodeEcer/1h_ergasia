@@ -160,6 +160,7 @@ def main():
             case "w": save_changes()
 
             case "x": exit_save_changes()
+            
 
             case _: print("wrong character")          
 

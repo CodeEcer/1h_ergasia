@@ -5,10 +5,10 @@ import logging.config
 import logging.handlers
 from datetime import datetime
 
-log_file  =r'1h_ergasia\_user_logs.conf'
+log_file = "_user_logs.conf"
 
-logging.config.fileConfig(log_file)
-logger = logging.getLogger('userLogger')
+logging.config.fileConfig(log_file, disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 
 all_tweets = []
 
@@ -46,7 +46,7 @@ def getting_input_from_user():
 
 def initializing_tweet_list(): #REFACTOOOOR!!!
     all_tweets.append(None) #In order to start using list from index and not messing with the printed indexes
-    with open("1h_ergasia\_tweet_for_code.json", "r") as json_file_read:
+    with open("_tweet_for_code.json", "r") as json_file_read:
         
         for line in json_file_read:
             tweet = json.loads(line) #kathe tweet einai ena dictionary

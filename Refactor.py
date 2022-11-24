@@ -160,6 +160,7 @@ def save_changes():
 
     with open("tweetdhead300000.json", "r+") as json_to_write:
         buffer = []
+        json_to_write.seek(0)
         for line in json_to_write:
             tweet = json.loads(line)
             buffer.append(tweet)
@@ -174,6 +175,7 @@ def save_changes():
                 json.dump(new_tweets[new_tweets_ids.index(id_w)], json_to_write)
             else:
                 json.dump(buffer[id_w], json_to_write)
+            json_to_write.write("\n")
 
 
 

@@ -6,7 +6,7 @@ import logging.handlers
 from datetime import datetime
 
 log_file = "_user_logs.conf"
-
+"""Niggeeeeeeeeeeeeeeeeer"""
 logging.config.fileConfig(log_file, disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 

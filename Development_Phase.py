@@ -1,6 +1,14 @@
 import datetime
 import json
+import logging
+import logging.config
+import logging.handlers
 from datetime import datetime
+
+log_file  =r'1h_ergasia\_user_logs.conf'
+
+logging.config.fileConfig(log_file)
+logger = logging.getLogger('userLogger')
 
 all_tweets = []
 
@@ -27,6 +35,7 @@ def getting_input_from_user():
     if len(user_input) == 1:
             instruction = user_input
             print("the user selected the choice:",instruction)
+            logger.info("the user selected the choice:",instruction )
             return(instruction,None)        
     else:
         instruction, number = user_input[0], user_input[1:] #assign the 1st char as the instruction and the rest into tweet_id
@@ -123,8 +132,6 @@ def exit_save_changes():
 
 def main():
 
-    
-    
     
 
     initializing_tweet_list()
